@@ -101,6 +101,17 @@ class PasswordManager(QWidget):
         # Populate table with entries
         for entry in self.entries:
             self.insert_entry_into_table(entry)
+        
+        # --- Keyboard Shortcuts ---
+        self.copy_username_action = QAction("Copy Username", self)
+        self.copy_username_action.setShortcut("Ctrl+U")
+        self.copy_username_action.triggered.connect(self.copy_username)
+        self.addAction(self.copy_username_action)
+
+        self.copy_password_action = QAction("Copy Password", self)
+        self.copy_password_action.setShortcut("Ctrl+C")
+        self.copy_password_action.triggered.connect(self.copy_password)
+        self.addAction(self.copy_password_action)
 
     def clear_search(self):
         self.search_bar.clear()
@@ -240,7 +251,9 @@ class PasswordManager(QWidget):
         menu = QMenu(self)
 
         copy_username_action = menu.addAction("Copy Username")
+        copy_username_action.setIcon(QIcon.fromTheme("edit-copy"))
         copy_password_action = menu.addAction("Copy Password")
+        copy_password_action.setIcon(QIcon.fromTheme("edit-copy"))
         edit_action = menu.addAction("Edit Entry")
         delete_action = menu.addAction("Delete Entry")
 
